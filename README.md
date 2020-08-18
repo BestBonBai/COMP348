@@ -5,7 +5,9 @@
 ---
 #### This is my COMP 348 Assignments. 
 * Date: Winter 2020
-* Miss: Absject-J
+* Missed Learning Course: [AbspectJ](https://www.eclipse.org/ajdt/downloads/index.php) due to ***COVID-19 PANDEMIC***.
+    - From 2020-March-15 to Now, universities are closed and all courses transfer to online. 
+
 ---
 #### Assignment Description :
 
@@ -23,7 +25,7 @@
 * [Assignment 3](https://github.com/BestBonBai/COMP348/tree/master/a3_40053833) : **C & Ruby**
 
 ---
-#### Tools (Compile Online)
+#### Tools (Online Compiler)
 
 * **Prolog** : [SWISH-PROLOG](https://swish.swi-prolog.org/)
 * **Common Lisp** : [Lisp](https://www.tutorialspoint.com/execute_lisp_online.php) 

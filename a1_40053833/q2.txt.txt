@@ -1,0 +1,31 @@
+likes(jane,X) = likes(X, josh).
+This pair cannot be unified because X is conflicted.
+
+diSk(27, queens, sgt_pepper) = diSk(A, B, help).
+This pair cannot be unified because help is not match sgt_pepper.
+
+[a,b,c] = [X,Y,Z|T].
+This pair cannot be unified because Z|T is conflicted..
+
+ancestor(french(jean), B) = ancestor(A, irish(joe)).
+This pair can be unified with A = french(jean), B = irish(joe).
+
+characters(hero(luke), X) = characters(X, villain(vader)).
+This pair cannot be unified because X is conflicted.
+
+f(X, a(b,c)) = f(d, a(Z, c)).
+This pair can be unified with X = d, Z = b.
+
+s(x, f(x), z) = s(g(y), f(g(b)), y).
+This pair cannot be unified because x,y,z are not variables and cannot match.
+
+vertical( line(point(X,Y), point(X,Z))) = vertical(line(point(1,1),point(1,3))).
+This pair can be unified with X = 1, Y = 1, Z = 3.
+
+g(Z, f(A, 17, B), A+B, 17) = g(C, f(D, D, E), C, E).
+This pair can be unified with Z=C, A=D, D=17,B=E, A+B=C,E=17.
+
+f(c, a(b,c)) = f(Z, a(Z, c)).
+This pair cannot be unified because Z is conflicted.
+
+

@@ -1,0 +1,171 @@
+1. ? exists(P), dateofbirth(P, date(_,_,Y)), Y<1963, salary(P, Salary), Salary<15000.
+Respond: P = person(jack, fox, date(27, may, 1940), unemployed),
+         Salary = 0,
+         Y = 1940
+
+         P = person(lily, armstrong, date(29, may, 1961), unemployed),
+         Salary = 0,
+         Y = 1961
+
+         P = person(ann, cohen, date(29, may, 1961), unemployed),
+         Salary = 0,
+         Y = 1961
+
+         P =  person(anny, oliver, date(9, may, 1961), unemployed),
+         Salary = 0,
+         Y = 1961
+  
+         P = person(jane, fox, date(9, aug, 1941), works(ntu, 13050)),
+         Salary = 13050,
+         Y = 1941
+
+First respond:
+   (1) find exists(Persons) :- husband( Persons); wife( Persons); child( Persons).unify Person = P.
+   (2) find husband(Persons) and person( jack, fox, date(27,may,1940), unemployed),
+       match Y = 1940 <1963, Salary = 0 <15000. Unified by dateofbirth(person(_, _, Date, _), Date).and salary(person(_, _, _, unemployed), 0).
+   (3) respond P = person(jack, fox, date(27, may, 1940), unemployed),
+               Salary = 0,
+               Y = 1940
+
+Second respond:
+   (1) find exists(Persons) :- husband( Persons); wife( Persons); child( Persons).unify Person = P.
+   (2) find wife(Persons) and person( lily, armstrong, date(29,may,1961), unemployed),
+       match Y = 1961 <1963, Salary = 0 <15000. Unified by dateofbirth(person(_, _, Date, _), Date).and salary(person(_, _, _, unemployed), 0).
+   (3) respond P = person(lily, armstrong, date(29, may, 1961), unemployed),
+               Salary = 0,
+               Y = 1961
+
+Third respond:
+   (1) find exists(Persons) :- husband( Persons); wife( Persons); child( Persons).unify Person = P.
+   (2) find wife(Persons) and person( ann, cohen, date(29,may,1961), unemployed),
+       match Y = 1961 <1963, Salary = 0 <15000. Unified by dateofbirth(person(_, _, Date, _), Date).and salary(person(_, _, _, unemployed), 0).
+   (3) respond   P = person(ann, cohen, date(29, may, 1961), unemployed),
+                Salary = 0,
+                Y = 1961
+
+Fourth respond:
+   (1) find exists(Persons) :- husband( Persons); wife( Persons); child( Persons).unify Person = P.
+   (2) find wife(Persons) and person( anny, oliver, date(9,may,1961), unemployed),
+       match Y = 1961 <1963, Salary = 0 <15000. Unified by dateofbirth(person(_, _, Date, _), Date).and salary(person(_, _, _, unemployed), 0).
+   (3) respond    P =  person(anny, oliver, date(9, may, 1961), unemployed),
+                 Salary = 0,
+                 Y = 1961
+
+Fifth respond:
+   (1) find exists(Persons) :- husband( Persons); wife( Persons); child( Persons).unify Person = P.
+   (2) find wife(Persons) and person( jane, fox, date(9,aug,1941), works( ntu, 13050)),
+       match Y = 1941 <1963, Salary = 13050 <15000. Unified by dateofbirth(person(_, _, Date, _), Date).and salary(person(_, _, _, works(_, S)), S).
+   (3) respond P = person(jane, fox, date(9, aug, 1941), works(ntu, 13050)),
+               Salary = 13050,
+               Y = 1941
+
+2. ? exists(P), dateofbirth(P,date(_,_,Y)), !, Y<1998, salary(P,Salary), Salary<20000.
+Respond:
+         P = person(john, cohen, date(17, may, 1990), unemployed),
+         Salary = 0,
+         Y = 1990
+(1) find exists(Persons) :- husband( Persons); wife( Persons); child( Persons).unify Person = P.
+(2) find husband(X) :- family( X, _, _).unify X = person( john, cohen, date(17,may,1990), unemployed), Y = 1990.
+(3) match Y = 1990 < 1998,and salary(person(_, _, _, unemployed), 0).unify Salary = 0 < 20000.
+(4) respond P = person(john, cohen, date(17, may, 1990), unemployed),
+            Salary = 0,
+            Y = 1990
+
+3. ?wife(person(GivenName, FamilyName, _, works(_,_))).
+Resopnd: FamilyName = baily, GivenName = grace
+         FamilyName = baily, GivenName = grace
+         FamilyName = fox, GivenName = grace
+         FamilyName = fox, GivenName = jane
+First respond:
+   (1) find wife(X) :- family( _, X, _). unify X = person(GivenName, FamilyName, _, works(_,_)).
+   (2) find person( grace, baily, date(9,may,1965), works( ntu, 1000)), unify and respond FamilyName = baily, GivenName = grace.
+
+Second respond:
+   (1) find wife(X) :- family( _, X, _). unify X = person(GivenName, FamilyName, _, works(_,_)).
+   (2) find person( grace, baily, date(9,may,1965), works( ntnu, 12000)), unify and respond FamilyName = baily, GivenName = grace.
+
+Third respond:
+   (1) find wife(X) :- family( _, X, _). unify X = person(GivenName, FamilyName, _, works(_,_)).
+   (2) find person( grace, fox, date(9,may,1971), works( ntbu, 13000)), unify and respond FamilyName = fox, GivenName = grace.
+
+Forth respond:
+   (1) find wife(X) :- family( _, X, _). unify X = person(GivenName, FamilyName, _, works(_,_)).
+   (2) find person( jane, fox, date(9,aug,1941), works( ntu, 13050)), unify and respond FamilyName = fox, GivenName = jane.
+
+
+4. ? child(X), dateofbirth(X, date(_,_,1983)).
+Respond:
+  
+X = person(louie, baily, date(25, may, 1983), unemployed)
+X = person(louie, baily, date(25, may, 1983), unemployed)
+X = person(pat, cohen, date(5, may, 1983), works(bcd, 15200))
+X = person(jim, cohen, date(5, may, 1983), works(bcd, 15200))
+X = person(jimey, oliver, date(5, may, 1983), unemployed)
+
+First respond:
+   (1) find child(X) :- family( _, _, Children), member(X, Children).unify X = X.
+   (2) find dateofbirth(person(_, _, Date, _), Date).unify X = person(_, _, Date, _), Date = 1983.
+   (3) find [person( louie, baily, date(25,may,1983), unemployed) ], unify X.
+   (4) respond X = person(louie, baily, date(25, may, 1983), unemployed).
+Second respond:
+   (1) find child(X) :- family( _, _, Children), member(X, Children).unify X = X.
+   (2) find dateofbirth(person(_, _, Date, _), Date).unify X = person(_, _, Date, _), Date = 1983.
+   (3) find [person(louie, baily, date(25, may, 1983), unemployed)], unify X.
+   (4) respond X = person(louie, baily, date(25, may, 1983), unemployed).
+Third respond:
+   (1) find child(X) :- family( _, _, Children), member(X, Children).unify X = X.
+   (2) find dateofbirth(person(_, _, Date, _), Date).unify X = person(_, _, Date, _), Date = 1983.
+   (3) find [person(pat, cohen, date(5, may, 1983), works(bcd, 15200))], unify X.
+   (4) respond X = person(pat, cohen, date(5, may, 1983), works(bcd, 15200)).
+Forth respond:
+   (1) find child(X) :- family( _, _, Children), member(X, Children).unify X = X.
+   (2) find dateofbirth(person(_, _, Date, _), Date).unify X = person(_, _, Date, _), Date = 1983.
+   (3) find [person(jim, cohen, date(5, may, 1983), works(bcd, 15200))], unify X.
+   (4) respond X = person(jim, cohen, date(5, may, 1983), works(bcd, 15200)).
+Fifth respond:
+   (1) find child(X) :- family( _, _, Children), member(X, Children).unify X = X.
+   (2) find dateofbirth(person(_, _, Date, _), Date).unify X = person(_, _, Date, _), Date = 1983.
+   (3) find [person(jimey, oliver, date(5, may, 1983), unemployed)], unify X.
+   (4) respond X = person(jimey, oliver, date(5, may, 1983), unemployed).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

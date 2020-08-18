@@ -1,0 +1,340 @@
+1.? building(library,lb).
+ground queries.
+Respond: True.
+        found by matching the database directly of line3: building(library,lb).
+
+2.? status(finance, A).
+non-ground queries.
+Respond: False.
+    (1) go down to line 19 and find status(X,Z) :- department(X,Y),status(Y,Z). 
+        unify X = finance, Z = A.
+    (2) go up to line 8 and find department(finance, business),return true,and unify Y = business.
+    (3) go down to line 19 and find status(X,Z):-department(X,Y),status(Y,Z).
+        unifiy X = business, Z = A.
+    (4) fail to find department(business,_), return false.
+    (5) fail to find status(business,_), return false.
+    (6) fail to find status(finance,A), return false.
+
+3.? department(civil, Bussiness).
+non-ground queries.
+Respond: Bussiness = engineering.
+    (1) go down to line 7 and find department(civil,engineering).unify Bussiness = engineering.
+    (2) respond Bussiness = engineering.
+
+4.? faculty(X, civil).
+non-ground queries.
+Respond: X = jones;
+         X = james;
+         X = davis;
+         false
+
+First respond:
+    (1) go down to line 14 and find faculty(jones, civil).unify and respond X = jones.
+Second respond:
+    (1) go down to line 15 and find faculty(james, civil).unify and respond X = james.
+Third respond:
+    (1) go down to line 16 and find faculty(davis, civil).unify and respond X = davis.
+Fourth respond:
+    (1) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+        unify X = X, Y = civil.
+    (2) fail to find department(_,civil), return false.
+    (3) fail to find faculty(_,civil), respond false.
+
+
+5.? faculty(smith, X).
+non-ground queries.
+Respond: X = electrical
+         X = computer
+         X = engineering
+         false
+
+First respond:
+    (1) go down to line 11 and find faculty(smith, electrical).unify and respond X = electrical.
+Second respond:
+    (1) go down to line 13 and find faculty(smith, computer).unify and respond X = computer.
+Third respond:
+    (1) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+        unify X = smith.
+    (2) go up to find department(electrical, engineering), unify Z = electrical, Y = engineering.
+    (3) go down to find faculty(smith, electrical), unify and return Y = engineering.
+    (4) unify X = Y = engineering, respond X = engineering.
+Fourth respond:
+    (1) fail to find other cases to match faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+    (2) respond false.
+
+
+
+6.? department(X, Y).
+non-ground queries.
+Respond: X = electrical,Y = engineering
+         X = civil,Y = engineering
+         X = finance,Y = business
+         X = ibm-exams,Y = lb
+First respond:
+    (1) go down to line 6 and find department(electrical, engineering).unify and respond X = electrical, Y = engineering.
+Second respond:
+    (1) go down to line 7 and find department(civil, engineering).unify and respond X = civil, Y = engineering.
+Third respond:
+    (1) go down to line 8 and find department(finance, business).unify and respond X = finance, Y = business.
+Fourth respond:
+    (1) go down to line 9 and find department(ibm-exams, lb).unify and respond X = ibm-exams, Y = lb.
+
+7.? faculty(X, civil), department(civil, Y).
+non-ground queries.
+Respond: X = jones, Y = engineering
+         X = james, Y = engineering
+         X = davis, Y = engineering
+         false
+First respond:
+    (1) go down to line 14 and find faculty(jones, civil),unify X = jones.
+    (2) go down to line 7 and find department(civil, engineering),unify Y = engineering.
+    (3) respond X = jones, Y = engineering.
+Second respond:
+    (1) go down to line 15 and find faculty(james, civil),unify X = james.
+    (2) go down to line 7 and find department(civil, engineering),unify Y = engineering.
+    (3) respond X = james, Y = engineering.
+Third respond:
+    (1) go down to line 16 and find faculty(davis, civil),unify X = davis.
+    (2) go down to line 7 and find department(civil, engineering),unify Y = engineering.
+    (3) respond X = davis, Y = engineering.
+Fourth respond:
+    (1) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).unify Y = civil.
+    (2) fail to find department(_,civil), respond false.
+
+8.? faculty(Smith).
+non-ground queries.
+Respond: Smith = smith
+         Smith = walsh
+         Smith = smith
+         Smith = jones
+         Smith = james
+         Smith = davis  
+         Smith = smith
+         Smith = walsh
+         Smith = jones
+         Smith = james   
+         Smith = davis    
+First respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 11 and find faculty(smith, electrical),unify X = smith.
+    (3) respond Smith = smith.
+Second respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 12 and find faculty(walsh, electrical),unify X = walsh.
+    (3) respond Smith = walsh.
+Third respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 13 and find faculty(smith, computer),unify X = smith.
+    (3) respond Smith = smith.
+Fourth respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 14 and find faculty(jones, civil).,unify X = jones.
+    (3) respond Smith = jones.
+Fifth respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 15 and find faculty(james, civil).,unify X = james.
+    (3) respond Smith = james.
+Sixth respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 16 and find faculty(davis, civil).,unify X = davis.
+    (3) respond Smith = davis.
+Seventh respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+    (3) find department(electrical, engineering).and faculty(smith, electrical).unify Z = electrical, Y = engineering, X = smith.
+    (4) respond Smith = smith.
+Eighth respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+    (3) find department(electrical, engineering).and faculty(walsh, electrical).unify Z = electrical, Y = engineering, X = walsh.
+    (4) respond Smith = walsh.
+9th respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+    (3) find department(civil, engineering).and faculty(jones, civil)..unify Z = civil, Y = engineering, X = jones.
+    (4) respond Smith = jones.
+10th respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+    (3) find department(civil, engineering).and faculty(james, civil).unify Z = civil, Y = engineering, X = james.
+    (4) respond Smith = james.
+11th respond:
+    (1) go down to line 20 and find faculty(X) :- faculty(X,_),unify X = Smith.
+    (2) go down to line 17 and find faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+    (3) find department(civil, engineering).and faculty(davis, civil).unify Z = civil, Y = engineering, X = davis.
+    (4) respond Smith = davis.
+
+9.? building(_, X).
+non-ground queries.
+Respond: X = ev
+         X = mb
+         X = lb
+         X = h
+         X = fg
+         X = ev
+         X = ev
+         X = mb 
+First respond:
+    (1) go down to line 1 and find building(engineering, ev).,unify X = ev.
+    (2) respond X = ev.
+Second respond:
+    (1) go down to line 2 and find building(business, mb).,unify X = mb.
+    (2) respond X = mb.
+Third respond:
+    (1) go down to line 3 and find building(library, lb).,unify X = lb.
+    (2) respond X = lb.
+Fourth respond:
+    (1) go down to line 4 and find building(classes, h).,unify X = h.
+    (2) respond X = h.
+Fifth respond:
+    (1) go down to line 5 and find building(hr, fg).,unify X = fg.
+    (2) respond X = fg.
+Sixth respond:
+    (1) go down to line 17 and find building(X, Y) :- department(X, Z), building(Z, Y).,unify Y = X.
+    (2) find department(electrical, engineering).and building(engineering, ev)..unify Z = engineering,X = electrical, Y = ev.
+    (3) respond X = ev.
+Seventh respond:
+    (1) go down to line 17 and find building(X, Y) :- department(X, Z), building(Z, Y).,unify Y = X.
+    (2) find department(civil, engineering).and building(engineering, ev)..unify Z = engineering,X = civil, Y = ev.
+    (3) respond X = ev.
+Eighth respond:
+     (1) go down to line 17 and find building(X, Y) :- department(X, Z), building(Z, Y).,unify Y = X.
+    (2) find department(finance, business).and building(business, mb).unify Z = business,X = finance, Y = mb.
+    (3) respond X = mb.
+
+10.? status(X, accredited), building(X, Y).
+non-ground queries.
+Respond: X = engineering, Y = ev
+         X = electrical,Y = ev
+         X = civil,Y = ev
+
+First respond:
+    (1) go down to line 10 and find status(engineering, accredited).,unify X = engineering.
+    (2) find building(engineering, ev). unify Y = ev.
+    (2) respond X = engineering, Y = ev.
+Second respond:
+    (1) go down to line 19 and find status(X,Z) :- department(X,Y),status(Y,Z).,unify Z = accredited.
+    (2) find department(electrical, engineering),and status(engineering, accredited). unify Y = engineering, X = electrical.
+    (3) respond X = electrical.
+    (4) find building(X, Y) :- department(X, Z), building(Z, Y).unify X = electrical.
+    (5) find department(electrical, engineering), and building(engineering, ev).unify Z = engineering,X = electrical, Y = ev.
+    (6) respond X = electrical, Y = ev.
+Third respond:
+    (1) go down to line 19 and find status(X,Z) :- department(X,Y),status(Y,Z).,unify Z = accredited.
+    (2) find department(civil, engineering).,and status(engineering, accredited). unify Y = engineering, X = civil.
+    (3) respond X = civil.
+    (4) find building(X, Y) :- department(X, Z), building(Z, Y).unify X = civil.
+    (5) find department(civil, engineering), and building(engineering, ev).unify Z = engineering,X = civil, Y = ev.
+    (6) respond X = civil, Y = ev.
+
+11.? status(_, X), building(X, Y).
+non-ground queries.
+Respond: False.
+First respond:
+    (1) find status(engineering, accredited).unify X = accredited.
+    (2) fail to find building(accredited,_), respond false.
+Second respond:
+    (1) find status(X,Z) :- department(X,Y),status(Y,Z).unify Z = X.
+    (2) find status(engineering, accredited).unify Z = accredited, Y = engineering.
+    (3) find department(electrical, engineering).unify X = electrical.
+    (4) fail to find building(electrical,engineering), respond false.
+
+12.? faculty(X), faculty(X, Y), department(Y, _).
+non-ground queries.
+Respond: X = smith, Y = electrical
+         X = walsh, Y = electrical
+         X = smith, Y = electrical
+         X = jones, Y = civil
+         X = james, Y = civil
+         X = davis, Y = civil
+
+         X = smith, Y = electrical
+         X = walsh, Y = electrical
+         X = jones, Y = civil
+         X = james, Y = civil
+         X = davis, Y = civil
+First respond:
+    (1) find faculty(smith, electrical),unify X = smith, Y = electrical.
+    (2) find department(electrical, engineering).. unify Y = electrical.
+    (3) respond X = smith, Y = electrical.
+Second respond:
+    (1) find faculty(walsh, electrical).,unify X = walsh, Y = electrical.
+    (2) find department(electrical, engineering). unify Y = electrical.
+    (3) respond X = walsh, Y = electrical.
+Third respond:
+    (1) find faculty(smith, computer),unify X = smith.
+    (2) find faculty(smith, electrical),unify X = smith, Y = electrical.
+    (3) respond X = smith, Y = electrical.
+Fourth respond:
+    (1) find faculty(jones, civil).,unify X = jones, Y = civil.
+    (2) find department(civil, engineering).. unify Y = civil.
+    (3) respond X = jones, Y = civil.
+Fifth respond:
+    (1) find faculty(james, civil).,unify X = james, Y = civil.
+    (2) find department(civil, engineering).. unify Y = civil.
+    (3) respond X = james, Y = civil.
+Sixth respond:
+    (1) find faculty(davis, civil).,unify X = davis, Y = civil.
+    (2) find department(civil, engineering).. unify Y = civil.
+    (3) respond X = davis, Y = civil.
+7th respond:
+    (1) find faculty(X, Y) :- department(Z, Y), faculty(X, Z). unify Z = electrical;civil.
+    (2) respond 
+         X = smith, Y = electrical
+         X = walsh, Y = electrical
+         X = jones, Y = civil
+         X = james, Y = civil
+         X = davis, Y = civil
+
+13.? faculty(X), faculty(X, Y), !, department(Y, Z).% note there is a cut (!) here
+non-ground queries.
+Respond: X = smith, Y = electrical, Z = engineering.
+    (1) find faculty(smith, electrical),unify X = smith, Y = electrical.
+    (2) find department(electrical, engineering). unify Y = electrical.
+    (3) find department(electrical, engineering).unify Z = engineering.
+    (4) respond X = smith, Y = electrical, Z = engineering.
+
+14.? faculty(X), !, faculty(X, _). % note there is a cut (!) here
+non-ground queries.
+Respond: X = smith
+         X = smith
+         X = smith
+   (1) find faculty(smith, electrical).unify X = smith.
+   (2) find faculty(smith, electrical).unify X = smith.
+   (3) find faculty(smith, computer).unify X = smith.
+   (4) respond X = smith, X = smith, X = smith.
+
+15.? department(X, _), \+ faculty(_, X).
+non-ground queries.
+Respond: X = finance
+         X = ibm-exams
+First respond:
+   (1) find department(finance, business).unify X = finance.
+   (2) fail to prove faculty(_,finance), respond true.
+   (3) respond X = finance.
+Second respond:
+   (1) find department(ibm-exams, lb).unify X = ibm-exams.
+   (2) fail to prove faculty(_,ibm-exams), respond true.
+   (3) respond X = ibm-exams.
+
+
+building(engineering, ev).
+building(business, mb).
+building(library, lb).
+building(classes, h).
+building(hr, fg).
+department(electrical, engineering).
+department(civil, engineering).
+department(finance, business).
+department(ibm-exams, lb).
+status(engineering, accredited).
+faculty(smith, electrical).
+faculty(walsh, electrical).
+faculty(smith, computer).
+faculty(jones, civil).
+faculty(james, civil).
+faculty(davis, civil).
+faculty(X, Y) :- department(Z, Y), faculty(X, Z).
+building(X, Y) :- department(X, Z), building(Z, Y).
+status(X,Z) :- department(X,Y),status(Y,Z).
+faculty(X) :- faculty(X,_).

@@ -1,0 +1,79 @@
+method1:
+(defun findchar(lst)
+    
+ 
+      (cond 
+     
+          ((null lst) nil)
+       
+ 
+          ( (and (atom (car lst))  (symbolp (car lst)) ) 
+    
+                 (cons (car lst) (findchar(cdr lst)) )
+           
+   
+          )
+         
+      ((listp (car lst)) (remove-duplicates(append (findchar(car lst)) (findchar(cdr lst )) )) )
+     
+ 
+     (t (findchar(cdr lst)) )
+   
+  
+      )
+
+)
+
+
+method2:
+(defun findchar(lst)
+    
+   
+   (setq lst2
+      (cond 
+      
+         ((null lst) nil)
+      
+ 
+        ( (and (atom (car lst))  (symbolp (car lst)) ) 
+  
+             (cons (car lst)  (findchar(cdr lst)) )
+     
+      
+   )
+          
+         ((listp (car lst)) (append (findchar(car lst)) (findchar(cdr lst ))))
+ 
+         (t (findchar(cdr lst)) )
+   
+    
+       )
+    
+    )
+   
+ ;use member function
+  
+  (setq lst3 '())
+   
+  (dolist (a lst2)
+      
+     (if(member a (cdr(member a lst2)))
+    
+        (setq lst2 (cdr(member a lst2)))
+   
+        (setq lst3 (append lst3 (list a)))
+     
+      )
+  
+   )
+
+    
+(return-from findchar lst3)
+  
+
+
+)
+
+
+(print(findchar '((z f) (b a 5 3.5) 6 (7) (a) c ) ))
+(print(findchar '( (n) 2 (6 h 7.8) (w f) (n) (c) n) ))

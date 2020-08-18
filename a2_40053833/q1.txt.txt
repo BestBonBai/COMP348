@@ -1,0 +1,46 @@
+(defun triangle(n)
+     
+    (if(integerp n)
+       
+       (loop for i from 1 to n
+           
+           do(loop for j from 1 to i
+              
+                  do(write j)
+           
+            )
+           
+           (write-line "")
+      
+        )
+       
+       (if (floatp n)
+           
+           (print "decimal numbers are not valid input, please enter an integer")
+           
+           (if (stringp n)
+              
+               (print "strings are not valid input, please enter an integer")
+              
+               (print "not valid input, please enter an integer!")
+          
+           )
+       
+        )
+    
+     )
+
+)
+
+
+
+
+(triangle 4)
+
+(triangle 5)
+
+(triangle 2.5)
+
+(triangle "A")
+
+(triangle 1/3)

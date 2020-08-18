@@ -1,0 +1,90 @@
+;an recursive approach
+
+(defun pell-recursive(n)
+   
+    (cond
+ ((or(zerop n)(= n 1)) n)
+     
+       (t (+ (* 2 (pell-recursive (- n 1))) (pell-recursive (- n 2))))
+)
+
+);pell-recursive
+
+;pellnumbers
+
+(defun pellnumbers2(n)
+   
+ (let((lst nil))
+       
+      (loop for i from 0 to n
+      
+          do(setq lst (append lst (list(pell-recursive i)) ))
+    
+      )
+        
+     (print lst)
+   
+ )
+
+
+)
+;pellnumbers2
+
+;pellnumbers for iterative
+
+(defun pellnumbers(n)
+   
+  (let((lst nil))
+      
+      (loop for i from 0 to n
+        
+         do(setq lst (append lst (list(pell-iterative i)) )))
+      
+       (print lst)
+   
+   )
+
+)
+;pellnumbers
+
+;an iterative approach
+
+(defun pell-iterative(n)
+    
+   (let((x 0)(y 1)(sum 0))
+     
+       (if(or(zerop n)(= n 1))
+         
+          (setq sum n)
+         
+          (loop for j from 2 to n
+          
+             do(setq sum (+ (* 2 (+ y)) x))
+           
+             (setq x y)
+               
+             (setq y sum)
+         
+          )
+       
+       )
+      
+      sum
+   
+   )
+
+);pell-iterative
+
+;test cases
+
+(pellnumbers 6)
+
+(pellnumbers 12)
+
+(pellnumbers 20)
+
+(pellnumbers2 6)
+
+(pellnumbers2 12)
+
+(pellnumbers2 20)

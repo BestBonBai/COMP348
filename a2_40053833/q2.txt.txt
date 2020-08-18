@@ -1,0 +1,46 @@
+(1)using anonymous function (lambda)
+
+(defun getdistance(x1 y1 x2 y2)
+    
+   (print(
+    
+         (lambda (x1 y1 x2 y2) (sqrt(+(*(- x1 x2)(- x1 x2))(*(- y1 y2)(- y1 y2))))) x1 y1 x2 y2)
+    )
+
+)
+
+
+
+
+(getdistance 2 1 2 3)
+
+(getdistance 5 1 2 3)
+(print((lambda (x1 y1 x2 y2) (sqrt(+(*(- x1 x2)(- x1 x2))(*(- y1 y2)(- y1 y2))))) 2 1 2 3))
+
+(2)without applying the anonymous function
+
+(defun getdistance2 (x1 y1 x2 y2)
+    
+     (let( (x (- x1 x2))  (y (- y1 y2))  )
+    
+         (let( (x (* x x)) (y (* y y)) )
+       
+             (print (sqrt(+ x y)))
+      
+          )
+    
+     )
+
+)
+
+
+
+(getdistance2 2 1 2 3)
+
+(getdistance2 5 1 2 3)
+
+
+Which method is more efficient in terms of memory allocation?
+
+Actually, using anonymous function (lambda) is more efficient, since an anonymous function only has one line of code, which simply apply the anonymous function to the input elements. Unlike functions defined with defun, anonymous functions are not stored in memory.. Contrarily, getdistance2() use the let syntatic which need more memory allocation to create some new variables.
+

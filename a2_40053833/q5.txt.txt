@@ -1,0 +1,92 @@
+;is_bst: check if the given binary tree is a binary search tree.
+
+;use inorder nodes traversal the given binary tree to store in a list, 
+
+;then compare if the elements of list is ascending sort, which is a binary tree. 
+
+(defun is-bst(new_tree)
+    
+   (labels ( (inorder-traverse(old_tree)
+                    
+             (cond
+                        
+                 ;base case: just a node, no left and right childs of this node.
+                        
+                 ((and(null(car(cdr old_tree))) 
+                         
+                 (null(car(cdr(cdr old_tree)))))
+           
+                 ;add node to the list
+                   
+                 (list (car old_tree))
+                 
+             )
+                        
+            ;recursive call: have a right child, no left child
+             
+            ((null(car(cdr old_tree)))
+                      
+              ;since right > node, then put it after node.
+                  
+              ;such as (node, right)
+                   
+              (append (list(car old_tree)) (inorder-traverse(car(cdr(cdr old_tree)))) )
+             
+            )
+                       
+           ;recursive call: have a left child, no right child
+                  
+           ((null (car(cdr(cdr old_tree))))
+                    
+              ;since left < node, then put it before node.
+                   
+              ;such as (left, node)
+                    
+              (append (inorder-traverse(car(cdr old_tree))) (list(car old_tree)) )
+   
+           )
+                       
+          ;recursive call: have both left and right child
+                   
+          ;put right child after node, while put left child before node.
+                  
+          ;such as (left, node, right)
+                      
+          (t (append (inorder-traverse(car(cdr old_tree))) (list (car old_tree))
+                                                       (inorder-traverse(car(cdr(cdr old_tree)))) )) )) 
+         
+        )
+        
+       ;store inorder-traverse(tree) in a list, then check if it is sorted by ascending.
+     
+       (let* ( (lst-tree (inorder-traverse new_tree))
+             
+               (isBST (apply #'< lst-tree)) ) 
+            
+              ;show the list of the binary tree
+         
+             (write "show the list of inorder traversal, and compare whether it is ascending sorted.")
+                          (print lst-tree)
+             
+            
+            ;compare the boolean value of isBST
+          
+            (if(null isBST)
+            
+               (print "It is not a binary search tree!")
+          
+               (print "It is a binary search tree!")
+          
+            )
+            
+           ;return boolean value of isBST
+            
+           isBST
+      
+        )
+    
+     );labels
+
+);defun
+
+(is-bst '(8 (3 (1 () () ) (6 (4 () ()) (7 () ()) ) (10 (()) (14 (13) () )))) )

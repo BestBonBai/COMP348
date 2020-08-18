@@ -1,0 +1,117 @@
+# super class CarMaker
+# and its hierarchy class
+class CarMaker
+  # 12 listing features: KM, TYPE_CAR, TRANSMISSION, STOCK_NUM, DRIVETRAIN, STATUS, FUEL_ECONOMY, CAR_MAKER, YEAR, TRIM, SET_FEATURES, Model(others)
+  attr_accessor :car_maker, :trim, :model, :km, :type_car, :transmission, :stock_num, :drivetrain, :status, :fuel_economy, :year, :set_features, :car_attrs
+  @@total = 0
+ 
+  
+  # constructor 
+  # create a car listing with the given attributes
+  # required car_maker, model, and trim lines 
+  def initialize(attrs)
+    @car_attrs = attrs.clone #use clone to avoid change data of hash
+    @car_maker = attrs[:car_maker]
+    @model = attrs[:model]
+    @trim = attrs[:trim]
+    @km = attrs[:km]
+    @type_car = attrs[:type_car]
+    @transmission = attrs[:transmission]
+    @stock_num = attrs[:stock_num]
+    @drivetrain = attrs[:drivetrain]
+    @status = attrs[:status]
+    @fuel_economy = attrs[:fuel_economy]
+    @year = attrs[:year]
+    @set_features = attrs[:set_features]
+    @@total += 1
+  end
+  
+  # listing features
+  def getinformation
+    puts "total inventory car number is: #{@@total}\n"
+  end  
+  # create a catalogue
+  def to_s
+    # use gsub! to replace [] to {}, and delete "" in string line
+      set_features = @set_features.to_s.gsub!("[", "{").gsub!("]","}").gsub!("\"","")
+      "#{@car_maker}, #{@model}, #{@trim}, #{@km}, #{@year}, #{@type_car}, #{@drivetrain}, #{@transmission}, #{@stock_num}, #{@status}, #{@fuel_economy}, #{set_features}\n\n"
+    end   
+
+end
+
+# define some subclasses associated with car_maker
+# car_maker in {Honda, Toyota, Mercedes, BMW, Lexus}
+class Honda < CarMaker
+    # constructor
+    # create Honda car with the given attributes
+    @@total_honda = 0
+    def initialize(attrs)
+      super(attrs)
+      @@total_honda += 1
+    end  
+
+    # get total number
+    def gettotal
+      puts "Honda total: #{@@total_honda}\n"
+    end  
+end
+
+class Toyota < CarMaker
+    # constructor
+    # create Honda car with the given attributes
+    @@total_toyota = 0
+    def initialize(attrs)
+      super(attrs)
+      @@total_toyota += 1
+    end  
+
+    # get total number
+    def gettotal
+      puts "Toyota total: #{@@total_toyota}\n"
+    end  
+end
+
+class Mercedes < CarMaker
+    # constructor
+    # create Honda car with the given attributes
+    @@total_mercedes = 0
+    def initialize(attrs)
+      super(attrs)
+      @@total_mercedes += 1
+    end  
+
+    # get total number
+    def gettotal
+      puts "Mercedes total: #{@@total_mercedes}\n"
+    end  
+end
+
+class Bmw < CarMaker
+    # constructor
+    # create Honda car with the given attributes
+    @@total_bmw = 0
+    def initialize(attrs)
+      super(attrs)
+      @@total_bmw += 1
+    end  
+
+    # get total number
+    def gettotal
+      puts "BMW total: #{@@total_bmw}\n"
+    end  
+end
+
+class Lexus < CarMaker
+    # constructor
+    # create Honda car with the given attributes
+    @@total_bmw = 0
+    def initialize(attrs)
+      super(attrs)
+      @@total_lexus += 1
+    end  
+
+    # get total number
+    def gettotal
+      puts "BMW total: #{@@total_lexus}\n"
+    end  
+end

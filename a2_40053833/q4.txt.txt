@@ -1,0 +1,91 @@
+;Write a Lisp function f-l-swap that swaps the first and last elements of a list.
+(defun f-l-swap(lst)
+    
+    ;set variables for exchange elements
+   
+    (setq lst2 lst)
+   
+    (setq f_elt (car lst2))
+    
+    ;remove the first element from list2
+   
+    (if(null (cdr lst2))
+   
+       (setq lst2 nil)
+      
+       (setq lst2 (cdr lst2))
+  
+    )
+   
+    ;get the last element of old list
+    
+   (if (or(null lst)(null (cdr lst))) 
+   
+       lst
+       
+      ;consider list with 1 and 2 elements situations
+         
+      (loop
+            
+          (when (null (cdr lst)) (return))
+       
+          ;return the list with only last element
+    
+          (setq lst (cdr lst))
+          
+      )
+      
+   )
+   ;swap the last and first elements
+   
+   ;reconstruct lst
+  
+   (if(or(null lst2)(null (cdr lst2)))
+  
+       lst
+      
+       ;add middle elemets of list
+     
+       (loop
+        
+           (setq lst(append lst (list (car lst2))))
+    
+           (setq lst2 (cdr lst2))
+      
+           (when (null (cdr lst2)) (return))
+   
+       )
+    
+    )
+   
+    ;add the first element
+   
+    ;consider special cases, such as nil,(f),(f g)
+  
+    (if(or(null f_elt)(null lst2)) 
+      
+        lst
+        
+       (setq lst (append lst (list f_elt)))
+  
+     )
+    
+     
+
+)
+
+(print(f-l-swap '((a d) f 10 w h)) )
+
+(print(f-l-swap '(g 6 p 10 m)) )
+
+;some special cases
+
+(print(f-l-swap '(f g h 5)) )
+
+(print(f-l-swap '(f g h)) )
+
+(print(f-l-swap '(f g)) )
+
+(print(f-l-swap '(f)) )
+
+(print(f-l-swap '()) )

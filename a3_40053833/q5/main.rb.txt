@@ -1,0 +1,59 @@
+# an inventory showroom system
+#for import and export car informations list.
+require "./CarModel"
+
+WELCOME = "****************************\n"\
+          "***CAR INVENTORY SHOWROOM***\n"\
+          "****************************\n\n"
+
+MENU = "Choose an option:\n"\
+        " 1. convertListings2Catalougue\n"\
+        " 2. searchInventory\n"\
+        " 3. Add2Inventory\n"\
+        " 4. saveCatalogue2File\n"\
+        " 5. show_stocknumber\n"\
+        " 6. Exit\n" \
+        ">>>>>>>>>>>>>>>>>>>>"
+
+#display welcome and menu
+puts WELCOME, MENU        
+
+# create new variable
+a_car = CarModel.new("car_data.txt")
+
+# process option selection of menu
+leave = false
+until leave
+  # get option from input
+  option = gets
+  case option[0]
+    when "1"
+      puts "processing convertListings2Catalougue\n"
+      a_car.convertListings2Catalougue   
+    when "2"
+      puts "processing searchInventory"
+      a_car.searchInventory({"car_maker" => "Mercedec"})       
+    when "3"
+      puts "please input a car information:\n"
+      input = gets
+      puts "processing add2Inventory\n"
+      a_car.add2Inventory(input)     
+    when "4"
+      puts "processing saveCatalogue2File\n" 
+      a_car.saveCatalogue2File
+    when "5"
+      puts "processing show_stocknumber"
+      a_car.show_stocknumber
+    when "6"
+      leave = true
+      puts ">>>Exit inventory showroom<<<"
+    else
+      puts "please input an option number from 1 to 5."  
+  end 
+end    
+
+      
+
+       
+
+

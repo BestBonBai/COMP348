@@ -1,0 +1,258 @@
+# class Car_model 
+# to store all the listing information
+# to store listing fearures
+require "./CarMaker"
+class CarModel
+  
+  # 12 listing features: KM, TYPE_CAR, TRANSMISSION, STOCK_NUM, DRIVETRAIN, STATUS,
+  #FUEL_ECONOMY, CAR_MAKER, YEAR, TRIM, SET_FEATURES, Model(others) 
+  # patterns for car attributes match
+  # use freeze() method on constants to make them immutable
+  # Use pos/neg lookahead/lookbehind in a regex to specify what chars shoud follow the patterns. eg.(?<!exp)
+  # i for ignoreCase, x for ignorePatternWhitespace
+ 
+  # match #km that kilometers followed by "km".
+  KM = /(\d*(^[L\/]?)\d+km(?!\w+))/i.freeze
+
+  # match Type with range in {Sedan, coupe, hatchback, station, SUV}
+  # can use (^sedan$) or ((?<!\w)sedan(?!\w+))
+  TYPE_CAR = /
+      (^Sedan$)|
+      (^coupe$)|
+      (^hatchback$)|
+      (^station$)|
+      (^SUV$)/ix.freeze
+
+  # match Transmission including {Auto, manual, steptronic}    
+  TRANSMISSION = /
+      (^Auto(?!\w+))|
+      (^manual(?!\w+))|
+      (^steptronic(?!\w+))/ix.freeze
+
+  # match Stock# that Combination of letters and numbers NOT ending with ¡°km¡±
+  STOCK_NUM = /^\d{2,}[A-Z]+\d*[A-Z]*(?!km)$/i.freeze
+
+  # match DRIVETRAIN in {FWD, RWD, AWD}
+  DRIVETRAIN = /
+      (^fwd(?!\w+))|
+      (^rwd(?!\w+))|
+      (^awd(?!\w+))/ix.freeze
+
+  # match STATUS in {Used, new}
+  STATUS = /
+        ^Used(?!\w+)|
+        ^new(?!\w+)/ix.freeze
+
+  # match Fuel Economy that similar to: 5.5L/100km format
+  FUEL_ECONOMY = /
+        (\d*(\.?)\d*[L](\/)\d+km$)/ix.freeze      
+
+  # match car_maker in {Honda, Toyota, Mercedes, BMW, Lexus}
+  CAR_MAKER = /
+        ^Honda(?!\w+)|
+        ^Toyota(?!\w+)|
+        ^Mercede[sc](?!\w+)|
+        ^BMW(?!\w+)|
+        ^Lexus(?!\w+)/ix.freeze
+
+  # match Model that Any text that doesn¡¯t match any of the other criteria in this table, we can just use if...else to set.
+  MODEL = ""
+
+  # match Year
+  YEAR = /^\d{4}(?!\w+)/ix.freeze
+
+  # match Trim that any two letters acronym
+  TRIM = /^[[:alpha:]]{2}(?!\w+)/ix.freeze
+
+  # match set of features that Any set of features inside curly parenthesis
+  SET_FEATURES = /(?<=\{).*(?=\})/ix.freeze
+
+  #attr_accessor
+  attr_accessor :file_name, :car_inventory, :car_attributes
+
+  #construstor
+  def initialize(file_name)
+    @file_name = file_name
+    # car_inventory array
+    @car_inventory = [] #an array
+    @car_attributes = {} #a hash
+  end
+
+  # This method is convertListings2Catalougue
+  def convertListings2Catalougue()
+
+    puts "the file does not exist!" unless File.exist?(@file_name)
+    
+    # reads the listing file line by line 
+    # and correctly recognizes and extracts different listing features
+    File.open(@file_name).each{ |line|
+      add2Inventory(line) 
+     }
+     puts "Already add all car objects from listing in car_inventory."
+
+   end
+
+   # method Add2Inventory
+   # that accepts a new listing, then add the line to the original file
+   # and add an appropriate object to the catalogue based on the listing features.
+   def add2Inventory(line)
+
+    # firstly extract set_features, since it specify includes {}.
+      if line =~ SET_FEATURES
+        car_attributes[:set_features] = line.match(SET_FEATURES)[0].split(/\s*\,+\s*/)
+        #since already extracted features, then remove it to avoid workload.
+        #puts line.match(SET_FEATURES)[0].split(/\s*\,+\s*/)
+        line.slice!(SET_FEATURES)
+        line.slice!("{}")
+      end
+
+      # then ceck each word of line
+      # store them into hash (car_attributes)
+      # 12 listing features: KM, TYPE_CAR, TRANSMISSION, STOCK_NUM, DRIVETRAIN, STATUS, FUEL_ECONOMY, CAR_MAKER, YEAR, TRIM, SET_FEATURES, Model(others) 
+      words = line.split(/\s*\,+\s*/)
+      words.each{|word|          
+            if  (w = word.match(KM)) 
+              car_attributes[:km] = w[0]
+            elsif (w = word.match(TYPE_CAR)) 
+              car_attributes[:type_car] = w[0]
+            elsif (w = word.match(TRANSMISSION)) 
+              car_attributes[:transmission] = w[0]    
+            elsif (w = word.match(STOCK_NUM)) 
+              car_attributes[:stock_num] = w[0]
+            elsif (w = word.match(DRIVETRAIN) )
+              car_attributes[:drivetrain] = w[0]   
+            elsif (w = word.match(STATUS)) 
+              car_attributes[:status] = w[0]
+            elsif w = word.match(FUEL_ECONOMY) 
+              car_attributes[:fuel_economy] = w[0]
+            elsif w = word.match(CAR_MAKER) 
+              car_attributes[:car_maker] = w[0]
+            elsif w = word.match(YEAR) 
+              car_attributes[:year] = w[0]
+            elsif w = word.match(TRIM) 
+              car_attributes[:trim] = w[0]                
+            else
+              car_attributes[:model] = word 
+          end     
+       }
+       #recall update_car_inventory method 
+       # to create the appropriate object and add it into the #array of car_inventory
+       car = update_car_inventory(car_attributes)
+       
+       # check whether this line has alread exist in data arry 
+       # -1 for same, 1 for no exist
+        check = 0
+        if(!car_inventory.empty?)
+           check = check_same(car)
+        end   
+      
+       
+       if(check == -1)
+          puts "this car has exist in inventory!"
+       elsif((car != 0 && check == 0) || (car != 0 && check == 1))
+          @car_inventory.push(car)
+          #puts "adding car object in car_inventory"
+       else  
+          puts "please input correct car_maker!"
+       end 
+
+   end
+
+   # this method is to update car inventory from the given hash of attributes
+   private 
+   def update_car_inventory(car_attributes)
+      # generate proporite objects based on :car_maker attribute
+      # car_maker in {Honda, Toyota, Mercedes, BMW, Lexus}
+      case car_attributes[:car_maker].downcase
+      when "honda"
+        ahoda = Honda.new(car_attributes)
+        #puts ahoda.to_s
+        #puts ahoda.gettotal
+      when "toyota"
+        Toyota.new(car_attributes)
+        #puts Toyota.new(car_attributes).to_s
+      when "mercedec", "mercedes"
+        car_attributes[:car_maker] = "Mercedec"
+        Mercedes.new(car_attributes)
+        #puts Mercedes.new(car_attributes).to_s
+      when "bmw"
+        Bmw.new(car_attributes)
+        #puts Bmw.new(car_attributes).to_s
+      when "lexus"
+        Lexus.new(car_attributes)
+        #puts Lexus.new(car_attributes).to_s  
+      else
+        puts "incorrect car_maker!"
+        0
+      end  
+      
+     end 
+
+  # the method is to check if the car object is exist in data  
+  # transfer line to an object, then compare it with each car object in array
+  private 
+  def check_same(car)
+    car_inventory.each{|item|
+      return -1 if (car.to_s == item.to_s )    
+    }
+    return 1
+  end
+
+  # The method is to store all created catalogue objects to an output file alphabetically according to their maker name.
+  public
+  def saveCatalogue2File  
+    # create a output file
+    output_file = File.open("./output.txt", "w+")  
+    # sort all car objects in car_inventory array 
+    # Comparison are based on alphabetical order of car_maker 
+    @car_inventory.sort!{|a, b| a.car_maker <=> b.car_maker}
+
+    # output each object of file
+    @car_inventory.each{|car|
+      output_file.puts car.to_s
+      puts car.to_s
+    } 
+    # close file
+    output_file.close
+  end  
+
+  # the method is to show the number of listings of makers in stock
+  def show_stocknumber
+    car_inventory.each{|item|
+      item.gettotal
+    }
+    #show total number in stock
+    car_inventory[0].getinformation
+
+  end
+
+  # the method is to perform an advanced search for all vehicles in stock based on the combonation of hash key-value pairs
+  def searchInventory(ahash)
+    car_search = []
+    count = 0
+    #since I use symbol[:symbol] as hash key, I need transfer symbol to # string or transfer string to symbol to compare if the keys and #values are same.
+    # use method .to_s or .to_sym for unify type of keys and values of #ahash and car_attrs
+    # for test type
+    #puts ahash.has_key?("car_maker")
+    #puts car_inventory[0].car_attrs.has_key?("car_maker".to_sym)
+    
+    car_inventory.each{|car| 
+        car.car_attrs.each{|key, value|    
+          if(ahash.has_key?(key.to_s) && ahash.has_value?(value.to_s))
+            count += 1
+          end  
+         }
+        if (count == ahash.length)
+            car_search.push(car)
+        end 
+        count = 0  
+    }
+    puts "complete searchInventory:"
+    puts "show all matched cars:"
+    car_search.each{|car| puts car.to_s}
+    
+  end 
+
+end  
+
+

@@ -1,0 +1,6 @@
+def charcount(array)
+  array.sort.each {|x| puts "#{x}, ch_count= #{x.length} "}
+end
+
+array = ["Adam", "Eve", "Mark", "Franklin", "John"]
+charcount(array)

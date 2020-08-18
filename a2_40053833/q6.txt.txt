@@ -1,0 +1,119 @@
+(defun factorial(num)
+    
+   (if (zerop num)1
+ (* num (factorial (- num 1))))
+)
+
+(defun cal-power(num1 exp)
+   
+   (if(zerop exp)1
+ (* num1 (cal-power num1 (- exp 1))))
+)
+
+(defun sin-cos-comp(x n)
+   
+    (cond 
+      
+       ((or (stringp x) (stringp n)) (print "String is not correct value!"))
+      
+       ((floatp n) (print "Decimal is not correct value!"))
+      
+       ((< n 0) (print "n can't be negative!"))
+     
+       ((and (oddp n)(or(>= x 10)(<= x -10))) (print " x is not in range (-10,10) when n is odd. "))
+               ;calculate sin(x)
+       
+      ((and(< x 10)(> -10)(oddp n)) 
+        
+      (if(= n 1)(print x)
+         
+         (let((sum 0)(index 0))
+         
+             ;such as n is 5, i is[1,3,5],index is [0,1,2]
+       
+             ;if index is even, then plus+, else minus-
+             
+             (loop for i from 1 to (+ n 1)
+                   
+                  do(if(evenp index)
+                         
+                       (setq  sum (+ sum (/ (cal-power x i) (factorial i))))
+                
+                       (setq  sum (- sum (/ (cal-power x i) (factorial i))))
+        
+                   )
+                       
+                  (setq i (+ i 1))
+               
+                  (setq index (+ index 1))
+               
+             )
+               
+            (print sum)
+           
+          )
+         
+        )
+     
+      )
+       
+      ;calculate cos(x)
+     
+     ((and(numberp x)(evenp n)) 
+      
+          ;n is 0, cos(x) is 1.
+          
+          (if(= n 0)(print 1)
+           
+          (let((sum 0)(index 0))
+            
+              ;such as n is 4, i is[0,2,4] with step 2,index is [0,1,2]
+            
+              ;if index is even, then plus+, else minus-
+            
+              (loop for i from 0 to (+ n 1)
+                     
+                     do(if(evenp index)
+                        
+                          (setq  sum (+ sum (/ (cal-power x i) (factorial i))))
+              
+                          (setq  sum (- sum (/ (cal-power x i) (factorial i))))
+           
+                        )
+                    
+                     (setq i (+ i 1))
+                  
+                     (setq index (+ index 1))
+             
+               )
+                 
+           (print sum)
+           
+          )
+      
+         )
+        
+      )
+        
+    
+   )
+
+);sin-cos-comp
+
+;test cases
+
+(sin-cos-comp 2 "10")
+
+(sin-cos-comp 2 2.5)
+
+(sin-cos-comp 2 -1)
+
+(sin-cos-comp 10 1)
+
+(sin-cos-comp 3 1)
+
+(sin-cos-comp 3 5)
+
+(sin-cos-comp 3 0)
+
+(sin-cos-comp 3 6)

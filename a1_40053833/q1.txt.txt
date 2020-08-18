@@ -1,0 +1,23 @@
+individual(hualin, male, baishi, chunlan).
+individual(huana, male, baishui, fang).
+individual(tianshu, male, shixin, honghong).
+individual(jane, female, jiang, bekery).
+individual(bangkun, male, yinqiang, wangli).
+individual(dahu, male, yinqiang, wangli).
+individual(zijin, female, liuwen, yinyu).
+individual(baishi, male, zjiu, qying).
+individual(honghong, female, zjiu, qying).
+individual(bekery, female, zjiu, qying).
+individual(baishui, male, zjiu, qying).
+individual(yinqiang, male, kjian, wyi).
+individual(chunlan, female, kjian, wyi).
+individual(yinyu, female, kjian, wyi).
+individual(lulu, female, zijin, wuxian).
+individual(kili, male, dahu, lida).
+
+offspring(X,Y):- individual(X,_,Y,_); individual(X,_,_,Y).
+niblings(X,Y):- offspring(X,Z),individual(Z,_,F,M), individual(Y,_,F,M), Z \= Y.
+puncle(X,Y):- offspring(Y,P), individual(P,male,F,M), individual(X,male,F,M), P \= X.
+modrige(X,Y):- offspring(Y,P), individual(P,female,F,M),individual(X,female,F,M),P \= X.
+avuncle(X,Y):- offspring(Y,P), individual(P,female,F,M), individual(X,male,F,M).
+

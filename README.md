@@ -1,6 +1,8 @@
 ## Concordia University
+![CU-logo](https://github.com/BestBonBai/COMP348/blob/master/Concordia-logo.jpeg) ![ENCS-logo](https://github.com/BestBonBai/COMP348/blob/master/logoENCS.jpg) 
+---
 ### COMP348 : Principles of Programming Languages
-#### COMP348 Assignments 
+#### Assignments 
 ---
 ##### In Winter 2020
 ---

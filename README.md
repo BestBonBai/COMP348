@@ -16,5 +16,14 @@
 
 * [Assignment 2](https://github.com/BestBonBai/COMP348/tree/master/a2_40053833) : **Common Lisp**
 
-* [Assignment 3](https://github.com/BestBonBai/COMP348/tree/master/a3_40053833) : **C , Ruby**
+* [Assignment 3](https://github.com/BestBonBai/COMP348/tree/master/a3_40053833) : **C & Ruby**
 
+---
+#### Tools (Compile Online)
+
+* **Prolog** : [SWISH-PROLOG](https://swish.swi-prolog.org/)
+* **Common Lisp** : [Lisp](https://www.tutorialspoint.com/execute_lisp_online.php) 
+* **C & Ruby** : [RepLit](https://repl.it/@BestBonBai/ImprobableSlimMice#main.c) (It can link github account) 
+
+#### Tutorial Materials : [COMP348 Tutorial Notes](https://adriannadiaz.github.io/adriannadiaz/comp348-f2017.html) 
+* Link is https://adriannadiaz.github.io/adriannadiaz/comp348-f2017.html

@@ -16,13 +16,13 @@
 *  [COMP348_A3](https://github.com/BestBonBai/COMP348/blob/master/COMP348_A3_%D9%8BWinter_2020.pdf) : **C , Ruby**
 
 ---
-#### Links of Assignment files:
+#### Links of Assignment files (upgade grades)
 
-* [Assignment 1](https://github.com/BestBonBai/COMP348/tree/master/a1_40053833) : **Prolog**
-
-* [Assignment 2](https://github.com/BestBonBai/COMP348/tree/master/a2_40053833) : **Common Lisp**
-
-* [Assignment 3](https://github.com/BestBonBai/COMP348/tree/master/a3_40053833) : **C & Ruby**
+|                                         Name                                                                 |          Grade        |
+|                                        :----:                                                                |          :----:       |
+|         [Assignment 1](https://github.com/BestBonBai/COMP348/tree/master/a1_40053833) : **Prolog**           |          96/100       |
+|         [Assignment 2](https://github.com/BestBonBai/COMP348/tree/master/a2_40053833) : **Common Lisp**      |          100/100      |
+|         [Assignment 3](https://github.com/BestBonBai/COMP348/tree/master/a3_40053833) : **C & Ruby**         |          100/100      |
 
 ---
 #### Tools (Online Compiler)

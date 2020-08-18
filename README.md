@@ -7,7 +7,7 @@
 * Date: Winter 2020
 * Missed Learning Course: [AbspectJ](https://www.eclipse.org/ajdt/downloads/index.php) due to ***COVID-19 PANDEMIC***.
     - From 2020-March-15 to Now, universities are closed and all courses transfer to online. 
-
+* Requirement: Copy txt file to online compiler to run.
 ---
 #### Assignment Description :
 
